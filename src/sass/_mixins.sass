@@ -1,0 +1,17 @@
+=animate($time:.25s)
+	-webkit-transition: all $time ease
+	-moz-transition: all $time ease
+	-ms-transition: all $time ease
+	-o-transition: all $time ease
+	transition: all $time ease
+=rotate( $degree: 0deg )
+	-webkit-transform: rotate($degree)
+	-moz-transform: rotate($degree)
+	-ms-transform: rotate($degree)
+	-o-transform: rotate($degree)
+	transform: rotate($degree)
+=setPos( $x, $y, $w, $h )
+	left: $x
+	top: $y
+	width: $w
+	height: $h

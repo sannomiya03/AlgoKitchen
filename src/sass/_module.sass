@@ -1,0 +1,77 @@
+// in INPUT MODULE
+.lay-twoColumn
+	display: flex
+	width: 100%
+	.lay-column
+		width: 100%
+		flex-shrink: 1
+	.lay-column:first-child
+		margin-right: 10px
+	.lay-column:last-child
+		margin-left: 10px
+
+// ELEMENT
+.operator
+	width: 1em
+	padding-bottom: 0.3em
+	font-size: 14pt
+	color: $Gray600
+
+.unit
+	padding-left: 0.3em
+	font-size: 8pt
+	color: $Gray600
+	width: 3em
+
+// MODULE
+.input-item
+	display: flex
+	align-items: center
+	justify-content: space-between
+	&:not(:last-child)
+		margin-bottom: 5px
+	.input-item-title
+		font-size: 10pt
+		color: $BlueGray500
+	.input-item-title
+		width: 6em
+		padding-right: 10px
+	.input-item-value
+		flex-grow: 1
+		display: flex
+		align-items: flex-end
+	&.input-item-pick-title
+		flex-direction: column
+		align-items: flex-start
+		padding-bottom: 1em
+		.input-item-title, .input-item-value
+			width: 100%
+
+table
+	width: 100%
+
+input[type="number"], input[type="text"]
+	flex-grow: 1
+	width: 50px
+	height: 2.5em
+	background-color: transparent
+	font-size: 12pt
+	outline: none
+
+input[type="number"]
+	height: 2.5em
+	border-radius: 5px
+	border: 1px solid $Gray300
+	&:hover
+		border: 1px solid $Gray400
+	&:not(:disabled):focus
+		border: 1px solid $Teal400
+	text-align: center
+	
+input[type="text"]
+	border: none
+	border-bottom: 1px solid $Gray300
+	&:hover
+		border-bottom: 1px solid $Gray400
+	&:not(:disabled):focus
+		border-bottom: 1px solid $Teal400
