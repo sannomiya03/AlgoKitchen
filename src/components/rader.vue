@@ -1,5 +1,5 @@
 <template lang="pug">
-	svg( :width="width", :height="height" )
+	svg.rader( :width="width", :height="height" )
 		g
 			polygon( :points="points(arr)")
 			circle( :cx="width/2", :cy="height/2", :r="width*0.4" )
@@ -53,12 +53,17 @@
 				return 0
 </script>
 <style lang="sass">
+	@import "./../sass/mixins"
+	.rader
+		+animate()
 	polygon
 		fill: #42b983
 		opacity: .75
+		+animate()
 	circle
 		fill: transparent
-		stroke: #999
+		stroke: #ddd
+		+animate()
 	text
 		font-family: Helvetica Neue, Arial, sans-serif
 		font-size: 10px
