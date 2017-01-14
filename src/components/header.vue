@@ -47,8 +47,6 @@
 			&:hover
 				background-color: $Gray200
 			&.active
-				// background-color: #72D4E5
-				// background-color: transparent
 				color: $Teal800
 		h1
 			a

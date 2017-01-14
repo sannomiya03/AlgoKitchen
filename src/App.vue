@@ -2,7 +2,7 @@
 	section#app
 		app-header
 		main.app-body
-			router-view
+			router-view.app-body
 </template>
 <script lang="coffee">
 	module.exports =
@@ -25,6 +25,7 @@
 
 	.app-body
 		position: relative
+		width: 100%
 		height: 100%
 		padding-top: $headerHeight
 		overflow: hidden

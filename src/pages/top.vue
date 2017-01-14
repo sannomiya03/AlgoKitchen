@@ -1,6 +1,6 @@
 <template lang="pug">
 	section
-		h2 here top page {{$route.params}}
+		h2 here top page
 </template>
 <script lang="coffee">
 </script>
