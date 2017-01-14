@@ -1,5 +1,3 @@
-<!-- template for the polygraph component. -->
-
 <template lang="pug">
 	section.recipesheet
 		section.editer-section
@@ -58,7 +56,6 @@
 		margin: 0 20px
 		padding: 20px
 		background-color: #fff
-		// border: 1px solid #AF8727
 
 	.editer-section
 		width: 100%
