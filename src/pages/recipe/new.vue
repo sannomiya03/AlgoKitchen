@@ -17,9 +17,7 @@
 				title: "さとしの素敵晩御飯！"
 				recipesheets: [
 					{ title: "メニュー1" }
-					{ title: "メニュー2" }
-					{ title: "メニュー2" }
-					{ title: "メニュー2" }
+					{ title: "メニュー1" }
 				]
 </script>
 <style lang="sass">
@@ -28,18 +26,17 @@
 		header
 			padding: 0 40px
 	.meta
-		border-bottom: 1px solid #D4D4D4
+		// border-bottom: 1px solid #AF8727
 		input[type="text"]
 			width: 240px
 
 	.lay-scroll-y-parent
 		width: 100%
 		overflow: hidden
-		padding: 20px 0
-		border: 1px solid red
+		padding: 20px 40px
 		overflow-x: auto
 		white-space: nowrap
-		
+
 	.lay-scroll-y-child
 		display: inline-block
 		vertical-align: top
