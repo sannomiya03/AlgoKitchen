@@ -1,0 +1,52 @@
+<template lang="pug">
+	header.app-header
+		h1 Algo Kitchen
+		nav
+			ul
+				li 
+					a 献立を作る
+				li
+					a みんなの献立
+</template>
+<style lang="sass">
+	@import "./../sass/colors"
+	$headerHeight: 50px
+	.app-header
+		position: fixed
+		top: 0
+		left: 0
+		width: 100%
+		height: $headerHeight
+		display: flex
+		align-items: center
+		background-color: $White
+		border-bottom: 1.5px solid #D2C8BE
+		z-index: 8000
+	.app-header
+		padding-left: 20px
+		background-color: $White
+		nav
+			height: 100%
+			ul
+				display: flex
+				align-items: center
+				margin-left: 1em
+				height: 100%
+				li
+					height: 100%
+					a
+						display: block
+						width: 100%
+						height: 100%
+						text-decoration: none
+						font-size: 10pt
+						padding: 0 1.5em
+						color: $Gray400
+						line-height: $headerHeight
+						&:hover
+							background-color: $Gray200
+						&.router-link-active
+							// background-color: #72D4E5
+							// background-color: transparent
+							color: $Teal800
+</style>
