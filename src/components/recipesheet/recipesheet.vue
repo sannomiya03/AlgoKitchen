@@ -23,10 +23,10 @@
 					input( type="number" v-model="food.price")
 					span 円/個
 				
-				svg( width="200" height="200" )
+				svg( width="100" height="100" )
 					g
 						polygon( :points="points(food.nutrients)")
-						circle( cx="100" cy="100" r="80" )
+						circle( cx="50" cy="50" r="40" )
 						axis-label( v-for="(nutrient, index) in food.nutrients",
 							:stat="nutrient",
 							:index="index",
@@ -43,6 +43,14 @@
 			ul
 				li 調理時間：{{calcSumTime(recipesheet.steps)}}
 				li 栄養バランス：{{calcTotalNutrients(recipesheet.foods)}}
+					svg( width="100" height="100" )
+						g
+							polygon( :points="points( calcTotalNutrients(recipesheet.foods) )")
+							circle( cx="50" cy="50" r="40" )
+							axis-label( v-for="(nutrient, index) in calcTotalNutrients(recipesheet.foods)",
+								:stat="nutrient",
+								:index="index",
+								:total="calcTotalNutrients(recipesheet.foods).length")
 				li 1食あたりの値段：{{calcSumPricePerOneServe(recipesheet)}}
 </template>
 
@@ -52,19 +60,20 @@
 			return
 		methods:
 			points: (nutrients)->
-				total = nutrients.length
+				total = 8
 				points = ""
-				for nutrient, index in nutrients
-					value = nutrient.value
+				index = 0
+				for key, value of nutrients
 					x = 0
-					y = -value * 0.8
+					y = -value * 0.4
 					angle = Math.PI * 2 / total * index
 					cos = Math.cos(angle)
 					sin = Math.sin(angle)
-					tx = x * cos - y * sin + 100
-					ty = x * sin + y * cos + 100
+					tx = x * cos - y * sin + 50
+					ty = x * sin + y * cos + 50
 					points += tx+","+ty
-					if index < nutrients.length - 1 then points += ","
+					if index < total - 1 then points += ","
+					index++
 				return points
 
 			calcSumTime: (steps, sumTime=0) ->
@@ -80,15 +89,15 @@
 					fiber: 0
 					fat: 0
 					carb: 0
-				# for food in foods
-				# 	totalNutrients.calorie += food.nutrients.calorie
-				# 	totalNutrients.ash += food.nutrients.ash
-				# 	totalNutrients.cholesterol += food.nutrients.cholesterol
-				# 	totalNutrients.protein += food.nutrients.protein
-				# 	totalNutrients.water += food.nutrients.water
-				# 	totalNutrients.fiber += food.nutrients.fiber
-				# 	totalNutrients.fat += food.nutrients.fat
-				# 	totalNutrients.carb += food.nutrients.carb
+				for food in foods
+					totalNutrients.calorie += food.nutrients.calorie
+					totalNutrients.ash += food.nutrients.ash
+					totalNutrients.cholesterol += food.nutrients.cholesterol
+					totalNutrients.protein += food.nutrients.protein
+					totalNutrients.water += food.nutrients.water
+					totalNutrients.fiber += food.nutrients.fiber
+					totalNutrients.fat += food.nutrients.fat
+					totalNutrients.carb += food.nutrients.carb
 				return totalNutrients
 			calcSumPrice: (foods, sumFoods=0) ->
 				for food in foods then sumFoods += food.num * food.price
@@ -104,61 +113,57 @@
 					foods: [
 						{
 							title: "じゃがいも"
-							nutrients: [
-								{ label: "calorie", value: 100 }
-								{ label: "ash", value: 90 }
-								{ label: "cholesterol", value: 80 }
-								{ label: "protein", value: 70 }
-								{ label: "water", value: 60 }
-								{ label: "fiber", value: 50 }
-								{ label: "fat", value: 40 }
-								{ label: "carb", value: 10 }
-							]
+							nutrients:
+								calorie: 10
+								ash: 20
+								cholesterol: 5
+								protein: 8
+								water: 4
+								fiber: 7
+								fat: 12
+								carb: 15
 							num: 1
 							price: 100
 						}
 						{
 							title: "にんじん"
-							nutrients: [
-								{ label: "calorie", value: 100 }
-								{ label: "ash", value: 100 }
-								{ label: "cholesterol", value: 100 }
-								{ label: "protein", value: 100 }
-								{ label: "water", value: 100 }
-								{ label: "fiber", value: 100 }
-								{ label: "fat", value: 100 }
-								{ label: "carb", value: 100 }
-							]
+							nutrients:
+								calorie: 10
+								ash: 20
+								cholesterol: 5
+								protein: 8
+								water: 4
+								fiber: 7
+								fat: 12
+								carb: 15
 							num: 1
 							price: 100
 						}
 						{
 							title: "たまねぎ"
-							nutrients: [
-								{ label: "calorie", value: 100 }
-								{ label: "ash", value: 100 }
-								{ label: "cholesterol", value: 100 }
-								{ label: "protein", value: 100 }
-								{ label: "water", value: 100 }
-								{ label: "fiber", value: 100 }
-								{ label: "fat", value: 100 }
-								{ label: "carb", value: 100 }
-							]
+							nutrients:
+								calorie: 10
+								ash: 20
+								cholesterol: 5
+								protein: 8
+								water: 4
+								fiber: 7
+								fat: 12
+								carb: 15
 							num: 1
 							price: 100
 						}
 						{
 							title: "カレールウ"
-							nutrients: [
-								{ label: "calorie", value: 100 }
-								{ label: "ash", value: 100 }
-								{ label: "cholesterol", value: 100 }
-								{ label: "protein", value: 100 }
-								{ label: "water", value: 100 }
-								{ label: "fiber", value: 100 }
-								{ label: "fat", value: 100 }
-								{ label: "carb", value: 100 }
-							]
+							nutrients:
+								calorie: 10
+								ash: 20
+								cholesterol: 5
+								protein: 8
+								water: 4
+								fiber: 7
+								fat: 12
+								carb: 15
 							num: 1
 							price: 100
 						}
