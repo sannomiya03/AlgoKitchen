@@ -23,7 +23,6 @@
 					span 個
 					input( type="number" v-model="food.price" min="0")
 					span 円/個
-				
 				svg( width="100" height="100" )
 					g
 						polygon( :points="points(food.nutrients)")
@@ -58,6 +57,7 @@
 <script lang="coffee">
 	Recipesheet = require "./../../models/recipesheet.coffee"
 	module.exports =
+		props: ["recipesheet"]
 		mounted: ->
 			return
 		methods:
@@ -78,10 +78,10 @@
 					index++
 				return points
 
-		data: ->
-			return {
-				recipesheet: new Recipesheet()
-			}
+		# data: ->
+		# 	return {
+		# 		recipesheet: new Recipesheet()
+		# 	}
 </script>
 
 <style lang="sass">

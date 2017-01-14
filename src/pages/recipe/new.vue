@@ -8,23 +8,27 @@
 				p 合計値
 					p 一食あたりの栄養バランス
 					p {{calcTotalNutrients}}
+					svg( width="100" height="100" )
+						g
+							polygon( :points="points( calcTotalNutrients )")
+							circle( cx="50" cy="50" r="40" )
+							axis-label( v-for="(nutrient, index) in calcTotalNutrients",
+								:stat="nutrient",
+								:index="index",
+								:total="calcTotalNutrients.length")
 		main
 			div.recipesheets.lay-scroll-y-parent
-				recipesheet.lay-scroll-y-child( v-for="recipesheet in menusheet.recipesheets")
+				recipesheet.lay-scroll-y-child( v-for="recipesheet in menusheet.recipesheets", :recipesheet="recipesheet")
 
 </template>
 <script lang="coffee">
+	bus = require "./../../bus.coffee"
 	Recipesheet = require "./../../models/recipesheet.coffee"
 	module.exports =
 		components:
 			recipesheet: require "./../../components/recipesheet/recipesheet"
 		data: ->
-			menusheet:
-				title: "さとしの素敵晩御飯！"
-				recipesheets: [
-					new Recipesheet(),
-					new Recipesheet()
-				]
+			menusheet: bus.menusheet
 		computed:
 			calcTotalNutrients: ->
 				totalNutrients =
@@ -46,6 +50,23 @@
 					totalNutrients.fat += recipesheet.calcTotalNutrients().fat
 					totalNutrients.carb += recipesheet.calcTotalNutrients().carb
 				return totalNutrients
+		methods:
+			points: (nutrients)->
+				total = 8
+				points = ""
+				index = 0
+				for key, value of nutrients
+					x = 0
+					y = -value * 0.4
+					angle = Math.PI * 2 / total * index
+					cos = Math.cos(angle)
+					sin = Math.sin(angle)
+					tx = x * cos - y * sin + 50
+					ty = x * sin + y * cos + 50
+					points += tx+","+ty
+					if index < total - 1 then points += ","
+					index++
+				return points
 </script>
 <style lang="sass">
 	.page
