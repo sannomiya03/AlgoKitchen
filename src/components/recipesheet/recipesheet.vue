@@ -40,7 +40,9 @@
 							input( type="checkbox", name="step.title", v-model="step.use" )
 							label( for="step.title", class="checkbox" )
 							div.img-container( @click="stepActivate(step) ")
-								img( src="http://localhost:8080/static/images/nife.svg" width="60px" height="60px")
+								img( src="http://localhost:8080/static/images/nife.svg" width="60px" height="60px" v-if="step.title=='切る'")
+								img( src="http://localhost:8080/static/images/pan.svg" width="60px" height="60px" v-if="step.title=='焼く'")
+								img( src="http://localhost:8080/static/images/nabe.svg" width="60px" height="60px" v-if="step.title=='茹でる'")
 						td.info
 							h3.step-title() {{step.title}}
 							p.source {{getActiveSources(step)}}
