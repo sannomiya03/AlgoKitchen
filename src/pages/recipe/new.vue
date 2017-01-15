@@ -1,14 +1,20 @@
 <template lang="pug">
 	section.page
-		header
+		div.page-info
 			div.meta
-				p 献立名：
+				p.label 献立名
 					input( type="text" v-model="menusheet.title")
-			div.result
-				p 合計値
-					p 一食あたりの栄養バランス
+			div.meta
+				p.label 1食あたりの栄養バランス
 					rader( :width="200", :height="200", :arr="calcTotalNutrients", :showLabel="true" )
-		main
+			div.meta
+				p.label.big 単価：
+					span.value 500
+					span.unit 円
+				p.label.big 単価：
+					span.value 500
+					span.unit 円
+		main.page-body
 			div.recipesheets.lay-scroll-y-parent
 				recipesheet.lay-scroll-y-child( v-for="recipesheet, index in menusheet.recipesheets", :recipesheet="recipesheet", :index="index", @remove="remove")
 				div.newRecipeSheet.lay-scroll-y-child( @click="menusheet.addRecipe()" )
@@ -39,13 +45,27 @@
 	@import "./../../sass/colors"
 
 	.page
-		padding: 40px 0
-		header
+		display: flex
+		.page-info
 			padding: 0 40px
-			display: flex
+			width: 300px
+			height: 100%
+			background-color: $White
+			border-right: 1px solid $Gray300
+		.page-body
+			width: 100px
+			flex-grow: 1
+
 	.meta
+		padding-top: 40px
 		input[type="text"]
 			width: 240px
+		.label
+			font-size: 10pt
+			color: $Gray800
+		.label.big
+			font-size: 13pt
+			color: $Gray800
 
 	.lay-scroll-y-parent
 		width: 100%

@@ -27,6 +27,7 @@
 		position: relative
 		width: 100%
 		height: 100%
-		padding-top: $headerHeight
+		// padding-top: $headerHeight
+		padding-top: 25px
 		overflow-x: hidden
 </style>
