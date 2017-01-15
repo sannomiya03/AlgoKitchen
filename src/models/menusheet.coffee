@@ -2,7 +2,7 @@ Recipesheet = require "./recipesheet.coffee"
 module.exports = class Menusheet
 	constructor: ->
 		@title = "さとしの素敵な晩御飯"
-		@recipesheets = [ new Recipesheet(), new Recipesheet(), new Recipesheet() ]
+		@recipesheets = [ new Recipesheet() ]
 
 	calcTotalNutrients: ->
 		totalNutrients =
@@ -24,3 +24,6 @@ module.exports = class Menusheet
 			totalNutrients.fat += recipesheet.calcTotalNutrients().fat
 			totalNutrients.carb += recipesheet.calcTotalNutrients().carb
 		return totalNutrients
+
+	addRecipe: ->
+		@recipesheets.push new Recipesheet()

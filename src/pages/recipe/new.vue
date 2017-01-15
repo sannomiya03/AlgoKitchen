@@ -11,6 +11,10 @@
 		main
 			div.recipesheets.lay-scroll-y-parent
 				recipesheet.lay-scroll-y-child( v-for="recipesheet in menusheet.recipesheets", :recipesheet="recipesheet")
+				div.newRecipeSheet.lay-scroll-y-child( @click="menusheet.addRecipe()" )
+					div.inner
+						p.label メニューを加える
+						p.symbol +
 
 </template>
 <script lang="coffee">
@@ -25,15 +29,18 @@
 		computed:
 			calcTotalNutrients: ->
 				return this.menusheet.calcTotalNutrients()
+
 </script>
 <style lang="sass">
+	@import "./../../sass/mixins"
+	@import "./../../sass/colors"
+
 	.page
 		padding: 40px 0
 		header
 			padding: 0 40px
 			display: flex
 	.meta
-		// border-bottom: 1px solid #AF8727
 		input[type="text"]
 			width: 240px
 
@@ -48,4 +55,29 @@
 		display: inline-block
 		vertical-align: top
 		white-space: normal
+
+	.newRecipeSheet
+		width: 150px
+		height: 200px
+		background-color: $Gray200
+		.inner
+			display: flex
+			flex-direction: column
+			align-items: center
+			justify-content: center
+			padding-top: 60px
+			.label
+				color: $Gray600
+				font-size: 10pt
+			.symbol
+				font-size: 21pt
+				color: $Gray600
+		+animate()
+		cursor: pointer
+		&:hover
+			background-color: $White
+			.label
+				color: $LightBlue400
+			.symbol
+				color: $LightBlue400
 </style>
