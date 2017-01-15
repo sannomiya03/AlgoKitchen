@@ -1,95 +1,9 @@
 module.exports = class Recipesheet
 	constructor: ->
-		@title = "カレーライス"
-		@servings = 2
-		@foods = [
-			{
-				title: "じゃがいも"
-				nutrients:
-					calorie: 10
-					ash: 20
-					cholesterol: 5
-					protein: 8
-					water: 4
-					fiber: 7
-					fat: 12
-					carb: 15
-				num: 1
-				price: 100
-				use: true
-			}
-			{
-				title: "にんじん"
-				nutrients:
-					calorie: 10
-					ash: 20
-					cholesterol: 5
-					protein: 8
-					water: 4
-					fiber: 7
-					fat: 12
-					carb: 15
-				num: 1
-				price: 100
-				use: true
-			}
-			{
-				title: "たまねぎ"
-				nutrients:
-					calorie: 10
-					ash: 20
-					cholesterol: 5
-					protein: 8
-					water: 4
-					fiber: 7
-					fat: 12
-					carb: 15
-				num: 1
-				price: 100
-				use: true
-			}
-			{
-				title: "カレールウ"
-				nutrients:
-					calorie: 10
-					ash: 20
-					cholesterol: 5
-					protein: 8
-					water: 4
-					fiber: 7
-					fat: 12
-					carb: 15
-				num: 1
-				price: 100
-				use: true
-			}
-		]
-		@steps = [
-			{
-				title: "切る"
-				foods: ["じゃがいも","にんじん","たまねぎ"]
-				time: 5
-				use: true
-			}
-			{
-				title: "炒める"
-				foods: ["じゃがいも","にんじん","たまねぎ"]
-				time: 5
-				use: true
-			}
-			{
-				title: "煮る"
-				foods: ["じゃがいも","にんじん","たまねぎ"]
-				time: 10
-				use: true
-			}
-			{
-				title: "煮込む"
-				foods: ["じゃがいも","にんじん","たまねぎ"]
-				time: 15
-				use: true
-			}
-		]
+		@title = "no title"
+		@servings = 1
+		@foods = []
+		@steps = []
 
 	calcTotalNutrients: ->
 		totalNutrients =
@@ -120,7 +34,7 @@ module.exports = class Recipesheet
 
 	calcSumPrice: (sumFoods=0) ->
 		for food in @foods
-			if food.use then sumFoods += food.num * food.price
+			if food.use then sumFoods += food.num * food.price * @servings
 		return sumFoods
 
 	calcSumPricePerOneServe: ->

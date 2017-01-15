@@ -6,7 +6,6 @@
 			div.editer-section-body
 				h3.recipe-title {{recipesheet.title}}
 				p.input-item
-					span.label 量：
 					input( type="number" v-model="recipesheet.servings" min="0" )
 					span.unit 人前
 		
@@ -64,6 +63,10 @@
 							span.label 単価：
 							span.value {{recipesheet.calcSumPricePerOneServe()}}
 							span.unit 円/1食
+						div.result
+							span.label 合計：
+							span.value {{recipesheet.calcSumPrice()}}
+							span.unit 円/{{recipesheet.servings}}食
 					div.diagram
 						h3.result
 							span.label 栄養バランス：

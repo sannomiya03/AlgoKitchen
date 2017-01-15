@@ -38,7 +38,7 @@
 				tx = x * cos - y * sin + 100
 				ty = x * sin + y * cos + 100
 				if index > 3
-					tx -= 20
+					tx -= 10
 				return { x: tx, y: ty }
 			
 			getIndex: (value) ->

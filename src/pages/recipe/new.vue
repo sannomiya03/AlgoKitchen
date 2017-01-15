@@ -5,22 +5,27 @@
 				p.label 献立名
 					input( type="text" v-model="menusheet.title")
 			div.meta
+				p.label 単価：
+					span.value {{menusheet.calcSumPricePerOneServe()}}
+					span.unit 円/1食
+				p.label 合計：
+					span.value {{menusheet.calcSumPrice()}}
+					span.unit 円
+				p.label 時間：
+					span.value {{menusheet.calcSumTime()}}
+					span.unit 分
+			div.meta
 				p.label 1食あたりの栄養バランス
 					rader( :width="200", :height="200", :arr="calcTotalNutrients", :showLabel="true" )
-			div.meta
-				p.label.big 単価：
-					span.value 500
-					span.unit 円
-				p.label.big 単価：
-					span.value 500
-					span.unit 円
 		main.page-body
 			div.recipesheets.lay-scroll-y-parent
 				recipesheet.lay-scroll-y-child( v-for="recipesheet, index in menusheet.recipesheets", :recipesheet="recipesheet", :index="index", @remove="remove")
-				div.newRecipeSheet.lay-scroll-y-child( @click="menusheet.addRecipe()" )
+				div.newRecipeSheet.lay-scroll-y-child
 					div.inner
-						p.label メニューを加える
-						p.symbol +
+						div.selectbox
+							select( name="selectedRecipe" v-model="selectedRecipeIndex")
+								option(v-for="recipe,index in menusheet.recipes", :value="index") {{recipe.title}}
+						p.label( @click="menusheet.addRecipe(selectedRecipeIndex)" ) このメニューを追加
 
 </template>
 <script lang="coffee">
@@ -32,6 +37,7 @@
 			rader: require "./../../components/rader"
 		data: ->
 			menusheet: bus.menusheet
+			selectedRecipeIndex: 0
 		computed:
 			calcTotalNutrients: ->
 				return this.menusheet.calcTotalNutrients()
@@ -63,9 +69,6 @@
 		.label
 			font-size: 10pt
 			color: $Gray800
-		.label.big
-			font-size: 13pt
-			color: $Gray800
 
 	.lay-scroll-y-parent
 		width: 100%
@@ -80,27 +83,16 @@
 		white-space: normal
 
 	.newRecipeSheet
-		width: 150px
-		height: 200px
-		background-color: $Gray200
 		.inner
 			display: flex
 			flex-direction: column
 			align-items: center
-			justify-content: center
-			padding-top: 60px
 			.label
 				color: $Gray600
-				font-size: 10pt
-			.symbol
-				font-size: 21pt
-				color: $Gray600
-		+animate()
-		cursor: pointer
-		&:hover
-			background-color: $White
-			.label
-				color: $LightBlue400
-			.symbol
-				color: $LightBlue400
+				font-size: 9pt
+				margin-top: 1em
+				cursor: pointer
+				+animate()
+				&:hover
+					color: $Blue400
 </style>
