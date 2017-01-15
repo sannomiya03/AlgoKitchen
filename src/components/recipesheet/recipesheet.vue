@@ -1,5 +1,6 @@
 <template lang="pug">
 	section.recipesheet
+		p.remove-btn(@click="remove()") x
 		section.editer-section.header-section
 			h2.editer-section-title レシピ
 			div.editer-section-body
@@ -74,7 +75,7 @@
 <script lang="coffee">
 	Recipesheet = require "./../../models/recipesheet.coffee"
 	module.exports =
-		props: ["recipesheet"]
+		props: ["recipesheet","index"]
 		components:
 			rader: require "./../rader"
 		mounted: ->
@@ -95,6 +96,9 @@
 					str += source
 					if index < sources.length-1 then str += ", "
 				return str
+			remove: ->
+				this.$emit "remove", this.index
+
 </script>
 
 <style lang="sass">
@@ -244,4 +248,16 @@
 				width: 120px
 		.recipe-title
 			font-size: 16pt
+
+	.remove-btn
+		position: absolute
+		top: 5px
+		right: 10px
+		padding: 5px
+		color: $Gray300
+		+animate()
+		cursor: pointer
+		&:hover
+			color: $Red500
+
 </style>

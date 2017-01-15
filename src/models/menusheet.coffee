@@ -27,3 +27,5 @@ module.exports = class Menusheet
 
 	addRecipe: ->
 		@recipesheets.push new Recipesheet()
+	deleteRecipe: (index) ->
+		@recipesheets.splice(index,1)

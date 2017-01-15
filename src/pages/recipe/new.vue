@@ -10,7 +10,7 @@
 					rader( :width="200", :height="200", :arr="calcTotalNutrients", :showLabel="true" )
 		main
 			div.recipesheets.lay-scroll-y-parent
-				recipesheet.lay-scroll-y-child( v-for="recipesheet in menusheet.recipesheets", :recipesheet="recipesheet")
+				recipesheet.lay-scroll-y-child( v-for="recipesheet, index in menusheet.recipesheets", :recipesheet="recipesheet", :index="index", @remove="remove")
 				div.newRecipeSheet.lay-scroll-y-child( @click="menusheet.addRecipe()" )
 					div.inner
 						p.label メニューを加える
@@ -29,6 +29,9 @@
 		computed:
 			calcTotalNutrients: ->
 				return this.menusheet.calcTotalNutrients()
+		methods:
+			remove: (index)->
+				this.menusheet.deleteRecipe(index)
 
 </script>
 <style lang="sass">
