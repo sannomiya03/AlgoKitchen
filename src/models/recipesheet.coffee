@@ -29,7 +29,10 @@ module.exports = class Recipesheet
 
 	calcSumTime: (sumTime=0) ->
 		for step in @steps
-			if step.use then sumTime += step.time
+			for food in step.foods
+				for master_food in @foods
+					if food is master_food.title
+						if step.use then sumTime += step.time * master_food.num
 		return sumTime
 
 	calcSumPrice: (sumFoods=0) ->
