@@ -40,18 +40,30 @@
 							img( src="http://localhost:8080/static/images/nife.svg" width="60px" height="60px")
 					td.info
 						h3.step-title() {{step.title}}
+						p.source {{getActiveSources(step)}}
 					td.time
 						p.input-item
 							span.label 時間：
 							input( type="number" v-model="step.time" min="0")
 							span.unit 分
-		section.editer-section
+		section.editer-section.result-section
 			h2.editer-section-title 合計
-			ul
-				li 調理時間：{{recipesheet.calcSumTime()}} 分
-				li 栄養バランス：
+			section.results
+				div.time-and-price
+					div.result
+						span.label 時間：
+						span.value {{recipesheet.calcSumTime()}}
+						span.unit 分
+					div.result
+						span.label 単価：
+						span.value {{recipesheet.calcSumPricePerOneServe()}}
+						span.unit 円/1食
+				div.diagram
+					h3.result
+						span.label 栄養バランス：
 					rader( :width="100", :height="100", :arr="recipesheet.calcTotalNutrients()" )
-				li 1食あたりの値段：{{recipesheet.calcSumPricePerOneServe()}}
+					
+
 </template>
 
 <script lang="coffee">
@@ -68,6 +80,14 @@
 				else return 30
 			foodActivate: (food) ->
 				food.use = !food.use
+			getActiveSources: (step,sources=[],str="") ->
+				for source in step.foods
+					for food in this.recipesheet.foods
+						if source == food.title && food.use then sources.push source
+				for source, index in sources
+					str += source
+					if index < sources.length then str += ", "
+				return str
 </script>
 
 <style lang="sass">
@@ -142,6 +162,9 @@
 				width: 80px
 			td:last-child
 				width: 120px
+			.source
+				font-size: 8pt
+				color: $Gray600
 			.icon
 				position: relative
 				width: 80px
@@ -159,4 +182,26 @@
 					img
 						width: 100%
 						height: 100%
+	.results
+		display: flex
+		.time-and-price,.diagram
+			width: 50%
+		.time-and-price
+			vertical-align: top
+		.diagram
+			display: flex
+			align-items: top
+		.result
+			display: flex
+			align-items: center
+			.label
+				color: $Gray800
+				font-size: 10pt
+			.unit
+				color: $Gray800
+				width: 5em
+		.diagram .result
+			align-items: flex-start
+	.result-section
+		border-top: 1px solid $Gray400
 </style>

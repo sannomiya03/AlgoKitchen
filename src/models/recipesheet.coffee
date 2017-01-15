@@ -72,14 +72,17 @@ module.exports = class Recipesheet
 			}
 			{
 				title: "炒める"
+				foods: ["じゃがいも","にんじん","たまねぎ"]
 				time: 5
 			}
 			{
 				title: "煮る"
+				foods: ["じゃがいも","にんじん","たまねぎ"]
 				time: 10
 			}
 			{
 				title: "煮込む"
+				foods: ["じゃがいも","にんじん","たまねぎ"]
 				time: 15
 			}
 		]
