@@ -8,6 +8,7 @@
 					span.label 量：
 					input( type="number" v-model="recipesheet.servings" min="0" )
 					span.unit 人前
+		
 		section.editer-section
 			h2.editer-section-title 材料
 			div.editer-section-body
@@ -29,6 +30,7 @@
 								span.unit 円/{{food.num}}個
 						//- td.diagram
 						//- 	rader( :width="getDiagramSize(food.use)", :height="getDiagramSize(food.use)", :arr="food.nutrients" )
+		
 		section.editer-section
 			h2.editer-section-title 作り方
 			div.editer-section-body
@@ -37,7 +39,7 @@
 						td.icon
 							input( type="checkbox", name="step.title", v-model="step.use" )
 							label( for="step.title", class="checkbox" )
-							div.img-container
+							div.img-container( @click="stepActivate(step) ")
 								img( src="http://localhost:8080/static/images/nife.svg" width="60px" height="60px")
 						td.info
 							h3.step-title() {{step.title}}
@@ -47,6 +49,7 @@
 								span.label 時間：
 								input( type="number" v-model="step.time" min="0")
 								span.unit 分
+		
 		section.editer-section.result-section
 			h2.editer-section-title 合計
 			div.editer-section-body
@@ -82,13 +85,15 @@
 				else return 30
 			foodActivate: (food) ->
 				food.use = !food.use
+			stepActivate: (step) ->
+				step.use = !step.use
 			getActiveSources: (step,sources=[],str="") ->
 				for source in step.foods
 					for food in this.recipesheet.foods
 						if source == food.title && food.use then sources.push source
 				for source, index in sources
 					str += source
-					if index < sources.length then str += ", "
+					if index < sources.length-1 then str += ", "
 				return str
 </script>
 
@@ -165,33 +170,46 @@
 			font-size: 4pt
 		input[type="number"]
 			height: 0em
-	.steps
-		.step
-			border-top: 1px solid $Gray200
-			td:first-child
-				width: 80px
-			td:last-child
-				width: 120px
-			.source
-				font-size: 8pt
-				color: $Gray600
-			.icon
+	.step
+		border-top: 1px solid $Gray200
+		td:first-child
+			width: 80px
+		td:last-child
+			width: 120px
+		.source
+			font-size: 8pt
+			color: $Gray600
+		.icon
+			position: relative
+			width: 80px
+			height: 80px
+			cursor: pointer
+			input
 				position: relative
+				z-index: 9999
+			.img-container
+				position: absolute
+				top: 0
+				left: 0
 				width: 80px
 				height: 80px
-				input
-					position: relative
-					z-index: 9999
-				.img-container
-					position: absolute
-					top: 0
-					left: 0
-					width: 80px
-					height: 80px
-					padding: 15px
-					img
-						width: 100%
-						height: 100%
+				padding: 15px
+				img
+					width: 100%
+					height: 100%
+	.step.disabled
+		img
+			+animate()
+			opacity: 0.2
+		.step-title
+			color: $Gray300
+		.source
+			color: $Gray200
+		.input-item
+			opacity: 0
+			font-size: 4pt
+		input[type="number"]
+			height: 0em
 	.results
 		display: flex
 		.time-and-price,.diagram
@@ -212,6 +230,7 @@
 				width: 8em
 		.diagram .result
 			align-items: flex-start
+
 	.result-section
 		border-top: 1px solid $Gray400
 	.header-section
