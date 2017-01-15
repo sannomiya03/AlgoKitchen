@@ -1,13 +1,13 @@
 <template lang="pug">
 	header.app-header
-		h1
-			router-link( :to="{name:'top'}" ) Algo Kitchen
+		h1 Algo Kitchen
+			//- router-link( :to="{name:'top'}" ) Algo Kitchen
 		nav
 			ul
 				li
-					router-link( :to="{name:'new_recipe'}", :class="{active: $route.fullPath=='/recipe/new'}") レシピを作る
-				li
-					router-link( :to="{name:'recipe'}", :class="{active: $route.fullPath!='./recipe/new' && $route.name=='recipe'}" ) みんなのレシピ
+					router-link.active( :to="{name:'new_recipe'}", :class="{active: $route.fullPath=='/recipe/new'}") レシピを作る
+				//- li
+					//- router-link( :to="{name:'recipe'}", :class="{active: $route.fullPath!='./recipe/new' && $route.name=='recipe'}" ) みんなのレシピ
 </template>
 <style lang="sass">
 	@import "./../sass/colors"
@@ -48,14 +48,15 @@
 				background-color: $Gray200
 			&.active
 				color: $Teal800
+				background-color: $Yellow100
 		h1
-			a
-				font-size: 11pt
+			padding: 0 1.5em
+			font-size: 11pt
+			color: $Black
+			font-weight: bold
+			&.active
 				color: $Black
-				font-weight: bold
-				&.active
-					color: $Black
-				&:hover
-					background-color: transparent
-					color: $Gray700
+			&:hover
+				background-color: transparent
+				color: $Gray700
 </style>

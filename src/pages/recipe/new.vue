@@ -67,7 +67,7 @@
 		input[type="text"]
 			width: 240px
 		.label
-			font-size: 10pt
+			font-size: 11pt
 			color: $Gray800
 
 	.lay-scroll-y-parent
