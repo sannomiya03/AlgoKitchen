@@ -1,67 +1,69 @@
 <template lang="pug">
 	section.recipesheet
-		section.editer-section
-			section.input-item
-				p.input-item-title メニュー名
-				p.input-item-value {{recipesheet.title}}
-			section.input-item
-				p.input-item-title 人数
-				p.input-item-value 
+		section.editer-section.header-section
+			h2.editer-section-title レシピ
+			div.editer-section-body
+				h3.recipe-title {{recipesheet.title}}
+				p.input-item
+					span.label 量：
 					input( type="number" v-model="recipesheet.servings" min="0" )
-					span 人前
+					span.unit 人前
 		section.editer-section
 			h2.editer-section-title 材料
-			table.foods
-				tr.food( v-for="food,index in recipesheet.foods", :class="{ disabled: !food.use }" )
-					td.checkbox
-						input( type="checkbox", name="food.title", v-model="food.use" )
-						label( for="food.title", class="checkbox" )
-					td.title
-						h3.food-title( @click="foodActivate(food) ") {{food.title}}
-					td.info
-						p.input-item
-							span.label 1人前：
-							input( type="number" v-model="food.num" min="0" v-bind:disabled="!food.use")
-							span.unit 個
-						p.input-item
-							span.label 単価：
-							input( type="number" v-model="food.price" min="0" v-bind:disabled="!food.use")
-							span.unit 円/{{food.num}}個
-					//- td.diagram
-					//- 	rader( :width="getDiagramSize(food.use)", :height="getDiagramSize(food.use)", :arr="food.nutrients" )
+			div.editer-section-body
+				table.foods
+					tr.food( v-for="food,index in recipesheet.foods", :class="{ disabled: !food.use }" )
+						td.checkbox
+							input( type="checkbox", name="food.title", v-model="food.use" )
+							label( for="food.title", class="checkbox" )
+						td.title
+							h3.food-title( @click="foodActivate(food) ") {{food.title}}
+						td.info
+							p.input-item
+								span.label 1人前：
+								input( type="number" v-model="food.num" min="0" v-bind:disabled="!food.use")
+								span.unit 個
+							p.input-item
+								span.label 単価：
+								input( type="number" v-model="food.price" min="0" v-bind:disabled="!food.use")
+								span.unit 円/{{food.num}}個
+						//- td.diagram
+						//- 	rader( :width="getDiagramSize(food.use)", :height="getDiagramSize(food.use)", :arr="food.nutrients" )
 		section.editer-section
 			h2.editer-section-title 作り方
-			table.steps
-				tr.step( v-for="step,index in recipesheet.steps", :class="{ disabled: !step.use }" )
-					td.icon
-						input( type="checkbox", name="step.title", v-model="step.use" )
-						label( for="step.title", class="checkbox" )
-						div.img-container
-							img( src="http://localhost:8080/static/images/nife.svg" width="60px" height="60px")
-					td.info
-						h3.step-title() {{step.title}}
-						p.source {{getActiveSources(step)}}
-					td.time
-						p.input-item
-							span.label 時間：
-							input( type="number" v-model="step.time" min="0")
-							span.unit 分
+			div.editer-section-body
+				table.steps
+					tr.step( v-for="step,index in recipesheet.steps", :class="{ disabled: !step.use }" )
+						td.icon
+							input( type="checkbox", name="step.title", v-model="step.use" )
+							label( for="step.title", class="checkbox" )
+							div.img-container
+								img( src="http://localhost:8080/static/images/nife.svg" width="60px" height="60px")
+						td.info
+							h3.step-title() {{step.title}}
+							p.source {{getActiveSources(step)}}
+						td.time
+							p.input-item
+								span.label 時間：
+								input( type="number" v-model="step.time" min="0")
+								span.unit 分
 		section.editer-section.result-section
 			h2.editer-section-title 合計
-			section.results
-				div.time-and-price
-					div.result
-						span.label 時間：
-						span.value {{recipesheet.calcSumTime()}}
-						span.unit 分
-					div.result
-						span.label 単価：
-						span.value {{recipesheet.calcSumPricePerOneServe()}}
-						span.unit 円/1食
-				div.diagram
-					h3.result
-						span.label 栄養バランス：
-					rader( :width="100", :height="100", :arr="recipesheet.calcTotalNutrients()" )
+			div.editer-section-body
+				section.results
+					div.time-and-price
+						div.result
+							span.label 時間：
+							span.value {{recipesheet.calcSumTime()}}
+							span.unit 分
+						div.result
+							span.label 単価：
+							span.value {{recipesheet.calcSumPricePerOneServe()}}
+							span.unit 円/1食
+					div.diagram
+						h3.result
+							span.label 栄養バランス：
+						rader( :width="100", :height="100", :arr="recipesheet.calcTotalNutrients()" )
 					
 
 </template>
@@ -95,22 +97,30 @@
 	@import "./../../sass/mixins"
 	.recipesheet
 		position: relative
-		width: 540px
+		width: 600px
 		margin: 0 20px
-		padding: 20px
 		background-color: #fff
 
 	.editer-section
 		width: 100%
 		margin-bottom: 0px
 		padding: 20px
+		display: flex
 
 	.editer-section-title
 		font-size: 10pt
 		font-weight: bold
 		color: $Gray700
 		margin-bottom: 0.5em
+		width: 90px
+		padding-right: 40px
+		text-align: right
 	
+	.editer-section-body
+		width: 400px
+		padding-right: 20px
+		flex-grow: 1
+
 	.foods
 		.food
 			+animate()
@@ -199,9 +209,20 @@
 				font-size: 10pt
 			.unit
 				color: $Gray800
-				width: 5em
+				width: 8em
 		.diagram .result
 			align-items: flex-start
 	.result-section
 		border-top: 1px solid $Gray400
+	.header-section
+		align-items: flex-end
+		padding-top: 30px
+		padding-bottom: 10px
+		.editer-section-body
+			display: flex
+			justify-content: space-between
+			.input-item
+				width: 120px
+		.recipe-title
+			font-size: 16pt
 </style>
